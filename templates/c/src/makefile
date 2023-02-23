@@ -1,4 +1,4 @@
-# {{:project}} 
+# {{:project}}
 # See LICENSE file for copyright and license details.
 
 include config.mk
@@ -17,16 +17,12 @@ options:
 .c.o:
 	$(CC) -c $(CFLAGS) $<
 
-config.h:
-	cp config.def.h $@
 
-$(OBJ): config.h
-
-{{:project}}: ${OBJ}
-	$(CC) -o $@ $^ $(LDFLAGS)
+{{:project}}: $(OBJ)
+	$(CC) -o $@ $(OBJ) $(LDFLAGS)
 
 clean:
-	rm -f {{:project}} ${OBJ}
+	rm -f {{:project}} $(OBJ)
 
 
 install: all

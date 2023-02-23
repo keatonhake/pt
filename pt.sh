@@ -62,6 +62,16 @@ fill_template() {
     sed -i "s|$PROJECT|$1|g" "$2"
 }
 
+# usage: fill_filenames <dir> <project-name>
+# replaces all instances of {{:project}} in filenames recursively in dir
+fill_filenames() {
+    find "$1" -type f -name "$PROJECT*" | while read -r file; do
+        new="$(echo "$file" | sed s/'{{:project}}'/"$2"/g)"
+        mv "$file" "$new"
+        stderr ".. $file -> $new"
+    done
+}
+
 list_templates() {
     echo "templates available:"
     for dir in "$TEMPLATES"/*/; do
@@ -90,6 +100,9 @@ create_project() (
         stderr ".. $f"
         fill_template "$proj" "$f"
     done
+
+    stderr "replacing instances of $PROJECT with $proj in filenames.."
+    fill_filenames "$dir" "$proj"
 )
 
 # do_* functions are defined with () and not {} in order to

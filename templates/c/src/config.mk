@@ -7,8 +7,8 @@ MANPREFIX = $(PREFIX)/share/man
 
 
 # includes and libs
-INCS = -I
-LIBS = -L
+INCS =
+LIBS =
 
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -DVERSION=\"$(VERSION)\"
